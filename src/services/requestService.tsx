@@ -50,7 +50,7 @@ class RequestService {
     }
   }
 
-  public async post(url: string, data: never) {
+  public async post(url: string, data: unknown) {
     const csrf = await this.csrf();
       const response = await fetch(url, {
         method: 'POST',
@@ -80,7 +80,7 @@ class RequestService {
     
   }
 
-  public async put(url: string, data: never) {
+  public async put(url: string, data: unknown) {
     const csrf = await this.csrf();
     try {
       const response = await fetch(url, {
