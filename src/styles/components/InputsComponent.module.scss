@@ -1,0 +1,28 @@
+@use '../Variables' as *;
+.inputField {
+  display : flex;
+  flex-direction: column;  
+  label {
+    font-weight: 700;
+    color: $dark-purple;
+    padding: 5px;
+    margin-top: 5px;
+  }
+  input, select {
+    padding: 6px;
+    padding-bottom: 5px;
+    border-bottom: $light-blue 1px solid;
+
+    &:focus {
+      padding: 5px;
+      border: $federal-blue 1px solid;
+      border-radius: 5px;
+    }
+  }
+
+  .radiosList {
+    display: flex;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+  }
+}
