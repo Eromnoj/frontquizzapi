@@ -1,0 +1,22 @@
+@use '../Variables' as *;
+@use 'sass:color';
+.buttonContainer {
+  display: flex;
+    justify-content: center;
+    margin-top: 30px;
+    gap: 10px;
+
+button {
+  padding: 10px 20px;
+  font-size: 16px;
+  color: white;
+  background-color: $federal-blue;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+
+  &:hover {
+    background-color: color.adjust($federal-blue, $lightness:-10%);
+  }
+}
+}

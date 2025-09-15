@@ -1,0 +1,24 @@
+@import 'Mixins';
+
+.main {
+ display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  .box {
+    @include BoxedContent;
+     .errorMessage {
+      margin: 15px;
+      border: 1px solid;
+      padding: 7px;
+      min-width: 50%;
+      text-align: center;
+        border-color : red;
+        color: red;
+          }
+    .questionForm {
+      min-width: 60%;
+    }
+  }
+}

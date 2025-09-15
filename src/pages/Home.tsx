@@ -1,4 +1,5 @@
 import style from "../styles/Home.module.scss";
+import ButtonComponent from "../components/ButtonComponent";
 import InputsComponent from "../components/InputsComponent";
 import { useReducer, useState } from "react";
 import RequestService from "../services/requestService";
@@ -162,11 +163,7 @@ function Home() {
               ]}
               radioName="difficulty"
             />
-            <div className={style.buttonContainer}>
-              <button className={style.button} id="submitQuiz">
-                Soumettre la question
-              </button>
-            </div>
+            <ButtonComponent id="submitQuiz" label="Soumettre la question" />
           </form>
         </div>
 
@@ -229,7 +226,12 @@ function Home() {
       </main>
 
       <footer className={style.footer}>
-        <h3>Réalisé par Jonathan Moreschi.</h3>
+        <h3>
+          Réalisé par{" "}
+          <a href="https://www.linkedin.com/in/jomoreschi/">
+            Jonathan Moreschi.
+          </a>
+        </h3>
         <p>
           Lien vers le gitHub du projet :
           <a href="https://github.com/Eromnoj/quizAPI" className="">
@@ -242,4 +244,3 @@ function Home() {
 }
 
 export default Home;
-
