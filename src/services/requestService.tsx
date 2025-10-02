@@ -12,8 +12,8 @@ class RequestService {
 
   private async csrf(): Promise<string> {
     const token = await fetch(`${import.meta.env.VITE_API_URL}/csrf`, {
-      method: 'GET',
-      credentials: 'include',
+      method: "GET",
+      credentials: "include",
     });
     const csrfToken = await token.json();
 
@@ -24,91 +24,93 @@ class RequestService {
     const csrf = await this.csrf();
     try {
       const response = await fetch(url, {
-        method: 'GET',
+        method: "GET",
         headers: {
-          'accept': 'application/json',
-          'Content-Type': 'application/json',
-          'x-csrf-token': csrf,
+          accept: "application/json",
+          "Content-Type": "application/json",
+          "x-csrf-token": csrf,
         },
-        credentials: 'include', // Assurez-vous que les cookies sont envoyés avec la requête
+        credentials: "include", // Assurez-vous que les cookies sont envoyés avec la requête
       });
       if (!response.ok) {
         const errorData = await response.json();
         const res = {
           status: response.status,
-          response: errorData
-        }
+          response: errorData,
+        };
         console.log("errorData", errorData);
         return res;
       }
       const responseData = await response.json();
-      console.log("responseData", responseData);
-      return responseData;
+      const res = {
+        status: response.status,
+        response: responseData,
+      };
+      return res;
     } catch (error) {
-      console.error('Error making GET request:', error);
+      console.error("Error making GET request:", error);
       throw error;
     }
   }
 
-  public async post(url: string, data: never) {
+  public async post(url: string, data: unknown) {
     const csrf = await this.csrf();
-      const response = await fetch(url, {
-        method: 'POST',
-        headers: {
-          'accept': 'application/json',
-          'Content-Type': 'application/json',
-          'x-csrf-token': csrf,
-        },
-        credentials: 'include',
-        body: JSON.stringify(data),
-      });
-      if (!response.ok) {
-        const errorData = await response.json();
-        console.log("errorData", errorData);
-        const res = {
-          status: response.status,
-          response: errorData
-        }
-        return res;
-      }
-      const responseData = await response.json();
+    const response = await fetch(url, {
+      method: "POST",
+      headers: {
+        accept: "application/json",
+        "Content-Type": "application/json",
+        "x-csrf-token": csrf,
+      },
+      credentials: "include",
+      body: JSON.stringify(data),
+    });
+    if (!response.ok) {
+      const errorData = await response.json();
+      console.log("errorData", errorData);
       const res = {
         status: response.status,
-        response: responseData
-      }
+        response: errorData,
+      };
       return res;
-    
+    }
+    const responseData = await response.json();
+    const res = {
+      status: response.status,
+      response: responseData,
+    };
+    return res;
   }
 
-  public async put(url: string, data: never) {
+  public async put(url: string, data: unknown) {
     const csrf = await this.csrf();
     try {
       const response = await fetch(url, {
-        method: 'PUT',
+        method: "PUT",
         headers: {
-          'accept': 'application/json',
-          'Content-Type': 'application/json',
-          'x-csrf-token': csrf,
+          accept: "application/json",
+          "Content-Type": "application/json",
+          "x-csrf-token": csrf,
         },
-        credentials: 'include', // Assurez-vous que les cookies sont envoyés avec la requête
+        credentials: "include", // Assurez-vous que les cookies sont envoyés avec la requête
         body: JSON.stringify(data),
       });
       if (!response.ok) {
         const errorData = await response.json();
         const res = {
           status: response.status,
-          response: errorData
-        }
+          response: errorData,
+        };
         return res;
       }
       const responseData = await response.json();
       const res = {
         status: response.status,
-        response: responseData
-      }
+        response: responseData,
+      };
       return res;
     } catch (error) {
-      console.error('Error making PUT request:', error);
+      console.error("Error making PUT request:", error);
       throw error;
     }
   }
@@ -118,29 +120,34 @@ class RequestService {
     const csrf = await this.csrf();
     try {
       const response = await fetch(url, {
-        method: 'DELETE',
+        method: "DELETE",
         headers: {
-          'accept': 'application/json',
-          'Content-Type': 'application/json',
-          'x-csrf-token': csrf,
+          accept: "application/json",
+          "Content-Type": "application/json",
+          "x-csrf-token": csrf,
         },
-        credentials: 'include', // Assurez-vous que les cookies sont envoyés avec la requête
+        credentials: "include", // Assurez-vous que les cookies sont envoyés avec la requête
       });
       if (!response.ok) {
         const errorData = await response.json();
         const res = {
           status: response.status,
-          response: errorData
-        }
+          response: errorData,
+        };
         return res;
       }
       const responseData = await response.json();
-      return responseData;
+      const res = {
+        status: response.status,
+        response: responseData,
+      };
+      return res;
     } catch (error) {
-      console.error('Error making DELETE request:', error);
+      console.error("Error making DELETE request:", error);
       throw error;
     }
   }
 }
 
 export default RequestService;
+
