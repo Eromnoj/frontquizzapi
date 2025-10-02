@@ -17,7 +17,7 @@ function MainLayout({ children }: MainLayoutProps): React.JSX.Element {
   return (
     <div>
       <header>
-        <h1>Butxaca</h1>
+        <h1>Simple Quiz API</h1>
         <a onClick={() => logout()} aria-label="Deconnection" role="menuitem">
           <div>Déconnexion</div>
         </a>
