@@ -42,7 +42,7 @@ ul, ol {
 
 body {
   /* Single gradient source to avoid layered/repeating look */
-  background: linear-gradient(135deg, #233e84, #2b4aa0);
+  background: linear-gradient(135deg, #1d2f6f, #20367f);
   background-repeat: no-repeat;
   background-attachment: fixed;
   background-size: cover;
