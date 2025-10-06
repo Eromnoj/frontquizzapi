@@ -1,0 +1,43 @@
+@use '../Variables' as *;
+@use 'sass:color';
+@import '../Mixins';
+.insertQuestion {
+    @include BoxedContent;
+.closeButton {
+  align-self: flex-end;
+}
+    .questionTitle {
+      text-align: center;
+    }
+
+    .questionSubtitle,
+    .exampleSubtitle {
+      margin-top: 15px;
+      margin-bottom: 5px;
+      max-width: 80%;
+    }
+
+    .questionForm {
+      min-width: 60%;
+    }
+
+    .questionMessage {
+      margin: 15px;
+      border: 1px solid;
+      padding: 7px;
+      min-width: 50%;
+      text-align: center;
+
+      &.msgError {
+        border-color: red;
+        color: red;
+      }
+
+      &.msgValid {
+        border-color: green;
+        color: green;
+      }
+    }
+
+
+  }

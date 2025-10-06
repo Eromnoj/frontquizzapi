@@ -1,0 +1,43 @@
+@use '../Variables' as *;
+@use 'sass:color';
+
+.buttonContainer {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+
+  button {
+    padding: 10px 20px;
+    font-size: 16px;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+
+  }
+
+  .alert {
+    background-color: red;
+
+    &:hover {
+      background-color: color.adjust(red, $lightness: -10%);
+    }
+  }
+
+  .confirm {
+    background-color: rgb(26, 158, 26);
+
+    &:hover {
+      background-color: color.adjust(rgb(26, 158, 26), $lightness: -10%);
+    }
+  }
+
+  .action {
+    background-color: $federal-blue;
+
+    &:hover {
+      background-color: color.adjust($federal-blue, $lightness: -10%);
+    }
+  }
+
+}

@@ -1,0 +1,114 @@
+@use '../Variables' as *;
+@use 'sass:color';
+@import '../Mixins';
+
+.section {
+  @include BoxedContent;
+
+  h3 {
+    font-size: 32px;
+    color: $dark-purple;
+    font-family: 'Ruda', sans-serif;
+    margin-bottom: 20px;
+  }
+  .modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.411);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+$table-border: #e5e7eb;
+$row-alt: #f6f7f8;   // gris léger
+$text: #1f2937;
+$head-bg: #f0f2f4;
+$head-text: #111827;
+
+.filterBox 
+{
+  width: 90%;
+  margin: auto;
+  margin-bottom: 15px;
+  & form {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+  }
+}
+.pagination {
+  width: 50%;
+  margin: auto;
+  margin-top: 15px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  button {
+    background-color: $federal-blue;
+    color: white;
+    cursor: pointer;
+    padding: 5px 10px;
+    &:disabled {
+      background-color: grey;
+      color:#1f2937;
+      cursor: default;
+    }
+  }
+}
+table {
+  width: 100%;
+  border-collapse: collapse;
+  color: $text;
+  background: #fff;
+
+  thead {
+    background: $head-bg;
+    color: $head-text;
+
+    th {
+      text-align: left;
+      font-weight: 600;
+      padding: 0.75rem 1rem;
+      border-bottom: 1px solid $table-border;
+      white-space: nowrap;
+    }
+  }
+
+  tbody {
+    tr {
+      border-bottom: 1px solid $table-border;
+
+      // coloration grisée 1 ligne sur 2
+      &:nth-child(even) {
+        background: $row-alt;
+      }
+
+      // optionnelle : léger survol pour lisibilité
+      &:hover {
+        filter: brightness(0.98);
+      }
+    }
+
+    td {
+      padding: 0.75rem 1rem;
+      vertical-align: middle;
+    }
+  }
+
+  // bordures externes optionnelles
+  th, td {
+    // ajouter si vous voulez des bordures verticales :
+    // border-right: 1px solid $table-border;
+    // &:last-child { border-right: none; }
+  }
+
+  // version compacte (optionnelle)
+  &--compact {
+    thead th, tbody td { padding: 0.5rem 0.75rem; }
+  }
+}
+
+}

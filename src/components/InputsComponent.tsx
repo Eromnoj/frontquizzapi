@@ -25,10 +25,12 @@ type inputsComponentProps = {
       | React.ChangeEvent<HTMLSelectElement>
       | React.ChangeEvent<HTMLTextAreaElement>,
   ) => void;
-  radioOptions?: { id: string; label: string }[]; // For radio inputs
+  radioOptions?: {
+    checked?: boolean | undefined; id: string; label: string 
+}[]; // For radio inputs
   radioName?: string; // For radio inputs
   tabIndex?: number; // Add tabIndex prop
-  options?: { id: string; label: string }[]; // For select inputs
+  options?: { id: string; name: string; }[]; // For select inputs
   error?: string;
 };
 
@@ -169,7 +171,7 @@ function InputsComponent({
             <option value="">Choisir une catégorie</option>
             {options?.map((el, i) => (
               <option key={i} value={el.id}>
-                {el.label}
+                {el.name}
               </option>
             ))}
           </select>
@@ -221,6 +223,7 @@ function InputsComponent({
                   onChange={onChange}
                   aria-label={option.label}
                   tabIndex={tabIndex}
+                  checked={option.checked}
                 />
                 <label htmlFor={option.id}>{option.label}</label>
               </div>
