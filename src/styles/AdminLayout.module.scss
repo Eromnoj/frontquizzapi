@@ -1,0 +1,48 @@
+@use '../styles/Variables' as *;
+
+.header {
+  position: sticky;
+  top: 0;
+  background: $surface;
+  border-bottom: 1px solid $border;
+  box-shadow: $shadow-sm;
+  z-index: 500;
+}
+
+.bar {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 12px 16px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.brand {
+  font-family: 'Ruda', sans-serif;
+  font-weight: 800;
+  color: $primary;
+  letter-spacing: -0.02em;
+}
+
+.spacer { flex: 1; }
+
+.nav {
+  display: flex;
+  gap: 12px;
+  a, button {
+    padding: 8px 10px;
+    border-radius: $radius-sm;
+    color: $muted;
+    border: 1px solid transparent;
+    background: transparent;
+    cursor: pointer;
+    &:hover { background: $surface-3; border-color: $border; color: $text; }
+  }
+}
+
+.main {
+  max-width: 1600px;
+  margin: 16px auto;
+  padding: 0 16px 64px; // extra bottom space for panel pages
+}

@@ -9,26 +9,14 @@ type MainLayoutProps = {
 };
 
 function MainLayout({ children }: MainLayoutProps): React.JSX.Element {
-  const { user, logout } = useAuth();
-  console.log("user", user);
+  const { user } = useAuth();
   if (user == undefined) {
     return <Navigate to='/' />
   }
   return (
-    <div>
-      <header>
-        <h1>Simple Quiz API</h1>
-        <a onClick={() => logout()} aria-label="Deconnection" role="menuitem">
-          <div>Déconnexion</div>
-        </a>
-      </header>
-        <AdminLayout>
-          {children}
-        </AdminLayout>
-      <footer>
-        <p>Jonathan Moreschi &copy; 2024</p>
-      </footer>
-    </div>
+    <AdminLayout>
+      {children}
+    </AdminLayout>
   );
 }
 

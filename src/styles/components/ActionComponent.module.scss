@@ -4,40 +4,41 @@
 .buttonContainer {
   display: flex;
   justify-content: center;
-  gap: 10px;
+  gap: 12px;
+}
 
-  button {
-    padding: 10px 20px;
-    font-size: 16px;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 10px 14px;
+  font-size: 14px;
+  font-weight: 600;
+  color: #ffffff;
+  border: 1px solid transparent;
+  border-radius: $radius-md;
+  cursor: pointer;
+  box-shadow: $shadow-sm;
+  transition: background-color .2s ease, box-shadow .2s ease, transform .02s ease;
+  &:active { transform: translateY(0.5px); }
+  &:focus-visible { outline: none; box-shadow: $shadow-sm, $focus-ring; }
+}
 
-  }
+.alert {
+  background-color: $danger;
+  border-color: color.scale($danger, $lightness: -10%);
+  &:hover { background-color: color.adjust($danger, $lightness: -8%); }
+}
 
-  .alert {
-    background-color: red;
+.confirm {
+  background-color: $success;
+  border-color: color.scale($success, $lightness: -10%);
+  &:hover { background-color: color.adjust($success, $lightness: -8%); }
+}
 
-    &:hover {
-      background-color: color.adjust(red, $lightness: -10%);
-    }
-  }
-
-  .confirm {
-    background-color: rgb(26, 158, 26);
-
-    &:hover {
-      background-color: color.adjust(rgb(26, 158, 26), $lightness: -10%);
-    }
-  }
-
-  .action {
-    background-color: $federal-blue;
-
-    &:hover {
-      background-color: color.adjust($federal-blue, $lightness: -10%);
-    }
-  }
-
+.action {
+  background-color: $primary;
+  border-color: color.scale($primary, $lightness: -10%);
+  &:hover { background-color: $primary-600; }
 }

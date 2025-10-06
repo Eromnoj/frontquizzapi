@@ -3,9 +3,9 @@ import style from "../styles/components/UpdateModalComponent.module.scss";
 import ButtonComponent from "../components/ButtonComponent";
 import ActionComponent from "../components/ActionComponent";
 import InputsComponent from "../components/InputsComponent";
-import { useReducer, useState } from "react";
+import { useReducer, useState, useEffect } from "react";
+import { createPortal } from "react-dom";
 import RequestService from "../services/requestService";
-import { useEffect } from "react";
 type QuizData = {
   id: string;
   question: string;
@@ -72,102 +72,105 @@ function UpdateModalComponent({ data, cb, toggle }: { data: QuizData, cb: () => 
     cb()
     toggle()
   };
-  return (
-    <div className={style.insertQuestion}>
-      <div className={style.closeButton}>
-        <ActionComponent label='Fermer' type='alert' id='close' onClick={() => toggle()} />
-      </div>
-      <h2 className={style.questionTitle}>Modification du Quiz id : {data.id}</h2>
-      {message.length > 0 ? (
-        <div
-          id="message"
-          className={
-            msgStatus == 400
-              ? [style.questionMessage, style.msgError].join(" ")
-              : [style.questionMessage, style.msgValid].join(" ")
-          }
-        >
-          {message}
+  return createPortal(
+    <div className={style.overlay} role="dialog" aria-modal="true">
+      <div className={style.insertQuestion}>
+        <div className={style.closeButton}>
+          <ActionComponent label='Fermer' type='alert' id='close' onClick={() => toggle()} />
         </div>
-      ) : null}
-      <form
-        className={style.questionForm}
-        name="submitQuestion"
-        id="submitQuestion"
-        onSubmit={handleSubmit}
-      >
-        <InputsComponent
-          type="text"
-          label="Question"
-          name="question"
-          placeholder="Entrez votre question ici"
-          value={quizData.question}
-          onChange={handleInputChange}
-          tabIndex={1}
-        />
-        <InputsComponent
-          type="text"
-          label="Bonne réponse"
-          name="answer"
-          placeholder="Entrez la bonne réponse ici"
-          value={quizData.answer}
-          onChange={handleInputChange}
-          tabIndex={2}
-        />
-        <InputsComponent
-          type="text"
-          label="Mauvaise réponse 1"
-          name="badAnswer1"
-          placeholder="Entrez une mauvaise réponse ici"
-          value={quizData.badAnswer1}
-          onChange={handleInputChange}
-          tabIndex={3}
-        />
-        <InputsComponent
-          type="text"
-          label="Mauvaise réponse 2"
-          name="badAnswer2"
-          placeholder="Entrez une autre mauvaise réponse ici"
-          value={quizData.badAnswer2}
-          onChange={handleInputChange}
-          tabIndex={4}
-        />
-        <InputsComponent
-          type="text"
-          label="Mauvaise réponse 3"
-          name="badAnswer3"
-          placeholder="Entrez encore une autre mauvaise réponse ici"
-          value={quizData.badAnswer3}
-          onChange={handleInputChange}
-          tabIndex={5}
-        />
-        <InputsComponent
-          type="select"
-          label="Catégorie"
-          name="categoryId"
-          placeholder="Sélectionnez une catégorie"
-          value={quizData.categoryId}
-          onChange={handleInputChange}
-          tabIndex={6}
-          options={options}
-        />
-        <InputsComponent
-          type="radio"
-          label="Difficulté"
-          name="difficulty"
-          value={quizData.difficulty}
-          onChange={handleInputChange}
-          tabIndex={7}
-          radioOptions={[
-            { id: "facile", label: "Facile", checked: "facile" === quizData.difficulty },
-            { id: "normal", label: "Normal", checked: "normal" === quizData.difficulty },
-            { id: "difficile", label: "Difficile", checked: "difficile" === quizData.difficulty },
-          ]}
-          radioName="difficulty"
-        />
-        <ButtonComponent id="submitQuiz" label="Soumettre la question" />
-      </form>
-    </div>
+        <h2 className={style.questionTitle}>Modification du Quiz id : {data.id}</h2>
+        {message.length > 0 ? (
+          <div
+            id="message"
+            className={
+              msgStatus == 400
+                ? [style.questionMessage, style.msgError].join(" ")
+                : [style.questionMessage, style.msgValid].join(" ")
+            }
+          >
+            {message}
+          </div>
+        ) : null}
+        <form
+          className={style.questionForm}
+          name="submitQuestion"
+          id="submitQuestion"
+          onSubmit={handleSubmit}
+        >
+          <InputsComponent
+            type="text"
+            label="Question"
+            name="question"
+            placeholder="Entrez votre question ici"
+            value={quizData.question}
+            onChange={handleInputChange}
+            tabIndex={1}
+          />
+          <InputsComponent
+            type="text"
+            label="Bonne réponse"
+            name="answer"
+            placeholder="Entrez la bonne réponse ici"
+            value={quizData.answer}
+            onChange={handleInputChange}
+            tabIndex={2}
+          />
+          <InputsComponent
+            type="text"
+            label="Mauvaise réponse 1"
+            name="badAnswer1"
+            placeholder="Entrez une mauvaise réponse ici"
+            value={quizData.badAnswer1}
+            onChange={handleInputChange}
+            tabIndex={3}
+          />
+          <InputsComponent
+            type="text"
+            label="Mauvaise réponse 2"
+            name="badAnswer2"
+            placeholder="Entrez une autre mauvaise réponse ici"
+            value={quizData.badAnswer2}
+            onChange={handleInputChange}
+            tabIndex={4}
+          />
+          <InputsComponent
+            type="text"
+            label="Mauvaise réponse 3"
+            name="badAnswer3"
+            placeholder="Entrez encore une autre mauvaise réponse ici"
+            value={quizData.badAnswer3}
+            onChange={handleInputChange}
+            tabIndex={5}
+          />
+          <InputsComponent
+            type="select"
+            label="Catégorie"
+            name="categoryId"
+            placeholder="Sélectionnez une catégorie"
+            value={quizData.categoryId}
+            onChange={handleInputChange}
+            tabIndex={6}
+            options={options}
+          />
+          <InputsComponent
+            type="radio"
+            label="Difficulté"
+            name="difficulty"
+            value={quizData.difficulty}
+            onChange={handleInputChange}
+            tabIndex={7}
+            radioOptions={[
+              { id: "facile", label: "Facile", checked: "facile" === quizData.difficulty },
+              { id: "normal", label: "Normal", checked: "normal" === quizData.difficulty },
+              { id: "difficile", label: "Difficile", checked: "difficile" === quizData.difficulty },
+            ]}
+            radioName="difficulty"
+          />
+          <ButtonComponent id="submitQuiz" label="Soumettre la question" />
+        </form>
+      </div>
+    </div>,
+    document.body
   )
 }
 

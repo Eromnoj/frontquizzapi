@@ -4,7 +4,10 @@ import InputsComponent from "../components/InputsComponent";
 import { useReducer, useState } from "react";
 import RequestService from "../services/requestService";
 import { useEffect } from "react";
+import { useAuth } from "../hooks/AuthHook";
+import AdminLayout from "../layouts/AdminLayout";
 function Home() {
+  const { user } = useAuth();
   const requestService = RequestService.getInstance();
   type QuizData = {
     question: string;
@@ -71,14 +74,28 @@ function Home() {
     setMessage(data.msg);
     setMsgStatus(res.status);
   };
-  return (
+  const content = (
     <div className={style.container}>
       <header className={style.header}>
-        <h1 className="">Simple Quiz API</h1>
+        <h1>Simple Quiz API</h1>
       </header>
       <main className={style.main}>
-        <div className={style.insertQuestion}>
-          <h3>Nombre de questions disponibles sur l'API : {count}</h3>
+        <div className={style.statsRow}>
+          <div className={style.counterCard} aria-live="polite">
+            <div className={style.counterIcon} aria-hidden>✨</div>
+            <div className={style.counterValue}>{count}</div>
+            <div className={style.counterLabel}>Quiz disponibles</div>
+          </div>
+          <div className={style.introCard}>
+            <h2>Une API simple et ouverte</h2>
+            <p>
+              Il s’agit d’une API conçue pour permettre à chacun d’ajouter des quiz
+              sur son site ou son application, facilement et en toute autonomie.
+              Tout le monde peut contribuer à la constitution de la base de données
+              en proposant des questions; une modération légère garantit la qualité
+              et la cohérence du contenu.
+            </p>
+          </div>
         </div>
         <div className={style.insertQuestion}>
           <h2 className={style.questionTitle}>Proposez vos questions !</h2>
@@ -178,7 +195,7 @@ function Home() {
         </div>
 
         <div id="exemple" className={style.example}>
-          <h2 className="">Une API pour créer des quiz dans vos applis !</h2>
+          <h2>Une API pour créer des quiz dans vos applis !</h2>
           <div>
             <p className={style.exampleSubtitle}>Exemple de requête :</p>
             <code>
@@ -254,6 +271,12 @@ function Home() {
         </p>
       </footer>
     </div>
+  );
+
+  return user ? (
+    <AdminLayout>{content}</AdminLayout>
+  ) : (
+    content
   );
 }
 

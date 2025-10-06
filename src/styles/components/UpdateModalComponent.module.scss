@@ -1,43 +1,71 @@
 @use '../Variables' as *;
 @use 'sass:color';
 @import '../Mixins';
-.insertQuestion {
-    @include BoxedContent;
-.closeButton {
-  align-self: flex-end;
+
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.42);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+  animation: fadeIn 160ms ease-out both;
 }
-    .questionTitle {
-      text-align: center;
-    }
 
-    .questionSubtitle,
-    .exampleSubtitle {
-      margin-top: 15px;
-      margin-bottom: 5px;
-      max-width: 80%;
-    }
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 
-    .questionForm {
-      min-width: 60%;
-    }
-
-    .questionMessage {
-      margin: 15px;
-      border: 1px solid;
-      padding: 7px;
-      min-width: 50%;
-      text-align: center;
-
-      &.msgError {
-        border-color: red;
-        color: red;
-      }
-
-      &.msgValid {
-        border-color: green;
-        color: green;
-      }
-    }
-
-
+.insertQuestion {
+  @include BoxedContent;
+  // Override enter anim for modal
+  @keyframes modalPop {
+    from { opacity: 0; transform: translateY(6px) scale(.98); }
+    to { opacity: 1; transform: translateY(0) scale(1); }
   }
+  animation: modalPop 180ms ease-out both;
+
+  .closeButton {
+    align-self: flex-end;
+  }
+
+  .questionTitle {
+    text-align: center;
+    color: $text;
+    font-size: 20px;
+  }
+
+  .questionSubtitle,
+  .exampleSubtitle {
+    margin-top: 12px;
+    margin-bottom: 6px;
+    max-width: 80%;
+  }
+
+  .questionForm {
+    width: 100%;
+  }
+
+  .questionMessage {
+    margin: 12px 0;
+    border: 1px solid $border;
+    padding: 10px 12px;
+    width: 100%;
+    text-align: center;
+    border-radius: $radius-sm;
+
+    &.msgError {
+      border-color: color.scale($danger, $lightness: 15%);
+      background-color: color.change($danger, $alpha: 0.08);
+      color: $danger;
+    }
+
+    &.msgValid {
+      border-color: color.scale($success, $lightness: 15%);
+      background-color: color.change($success, $alpha: 0.08);
+      color: $success;
+    }
+  }
+}
