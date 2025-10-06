@@ -1,6 +1,6 @@
 @use '../Variables' as *;
 @use 'sass:color';
-@import '../Mixins';
+@use '../Mixins' as *;
 
 .overlay {
   position: fixed;
@@ -17,14 +17,14 @@
 }
 
 @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+@keyframes modalPop {
+  from { opacity: 0; transform: translateY(6px) scale(.98); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
 
 .insertQuestion {
   @include BoxedContent;
-  // Override enter anim for modal
-  @keyframes modalPop {
-    from { opacity: 0; transform: translateY(6px) scale(.98); }
-    to { opacity: 1; transform: translateY(0) scale(1); }
-  }
+  // Enter animation for modal
   animation: modalPop 180ms ease-out both;
 
   .closeButton {

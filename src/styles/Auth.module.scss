@@ -1,5 +1,5 @@
 @use 'Variables' as *;
-@import 'Mixins';
+@use 'Mixins' as *;
 
 .main {
   display: flex;

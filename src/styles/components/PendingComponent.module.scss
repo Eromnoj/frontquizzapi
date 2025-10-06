@@ -1,6 +1,6 @@
 @use '../Variables' as *;
 @use 'sass:color';
-@import '../Mixins';
+@use '../Mixins' as *;
 
 .section {
   @include BoxedContent;
