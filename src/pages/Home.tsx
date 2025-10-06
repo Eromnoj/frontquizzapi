@@ -167,7 +167,7 @@ function Home() {
                 <span />
               </div>
               <pre>
-{`curl -s "https://quizzapi.jomoreschi.fr/api/v2/quiz?limit=3&category=tv_cinema&difficulty=facile" | jq`}
+                {`curl -s "https://quizzapi.jomoreschi.fr/api/v2/quiz?limit=3&category=tv_cinema&difficulty=facile" | jq`}
               </pre>
             </div>
           </div>
@@ -350,7 +350,7 @@ function Home() {
         <p>
           Lien vers le gitHub du projet :
           <a href="https://github.com/Eromnoj/quizAPI" className="">
-            https://github.com/Eromnoj/quizAPI
+            https://github.com/Eromnoj/quizzAPIv2
           </a>
         </p>
       </footer>
