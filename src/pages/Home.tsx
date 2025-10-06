@@ -349,7 +349,7 @@ function Home() {
         </h3>
         <p>
           Lien vers le gitHub du projet :
-          <a href="https://github.com/Eromnoj/quizAPI" className="">
+          <a href="https://github.com/Eromnoj/quizzAPIv2" className="">
             https://github.com/Eromnoj/quizzAPIv2
           </a>
         </p>
