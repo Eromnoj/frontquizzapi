@@ -8,7 +8,7 @@
 }
 
 html, body {
-  height: 100%;
+  min-height: 100vh;
   width: 100%;
 }
 
@@ -32,4 +32,32 @@ a {
 
 ul, ol {
   list-style: none;
+}
+
+/* Base theme */
+:root {
+  --bg: #f8fafc; /* matches $surface-2 */
+  --text: #0f172a; /* matches $text */
+}
+
+body {
+  /* Single gradient source to avoid layered/repeating look */
+  background: linear-gradient(135deg, #1d2f6f, #20367f);
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
+  color: var(--text);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+body {
+  font-family: "Ruda", system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, "Helvetica Neue", Arial, "Apple Color Emoji", "Segoe UI Emoji";
+  line-height: 1.5;
+}
+
+/* App root background */
+#root {
+  min-height: 100vh;
 }

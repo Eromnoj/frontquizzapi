@@ -1,14 +1,28 @@
 @use 'Variables' as *;
 
+@keyframes cardEnter {
+    from { opacity: 0; transform: translateY(8px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
 @mixin BoxedContent {
-    margin: 20px;
-    padding: 30px;
-    // border: 1px solid $marian-blue;
-    border-radius: 25px;
-    box-shadow: 0px 3px 4px $mint-green;
-    min-width: 70%;
-    background-color: rgb(246, 246, 246);
+    margin: 20px auto;
+    padding: 28px;
+    border: 1px solid $border;
+    border-radius: $radius-lg;
+    box-shadow: $shadow-md;
+    background-color: $surface;
     display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: stretch;
+    gap: 16px;
+    width: 100%;
+    max-width: 960px;
+    animation: cardEnter 280ms ease-out both;
+    transition: transform .2s ease, box-shadow .2s ease;
+
+    &:hover {
+        transform: translateY(-2px);
+        box-shadow: $shadow-lg;
+    }
 }

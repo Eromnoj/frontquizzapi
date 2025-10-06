@@ -4,7 +4,10 @@ import InputsComponent from "../components/InputsComponent";
 import { useReducer, useState } from "react";
 import RequestService from "../services/requestService";
 import { useEffect } from "react";
+import { useAuth } from "../hooks/AuthHook";
+import AdminLayout from "../layouts/AdminLayout";
 function Home() {
+  const { user } = useAuth();
   const requestService = RequestService.getInstance();
   type QuizData = {
     question: string;
@@ -42,6 +45,7 @@ function Home() {
     setOptions(resCat.response)
   }
   const [count, setCount] = useState<number>(0)
+  const [displayedCount, setDisplayedCount] = useState<number>(0)
   const getCount = async () => {
     const resCount = await requestService.get(import.meta.env.VITE_API_URL + "/quiz/count")
     setCount(resCount.response)
@@ -51,8 +55,53 @@ function Home() {
     getCat()
     getCount()
   }, [])
+  // Count-up animation when count updates
+  useEffect(() => {
+    let raf = 0
+    const start = performance.now()
+    const from = displayedCount
+    const to = count
+    const duration = 1200
+    const tick = (t: number) => {
+      const elapsed = Math.min(1, (t - start) / duration)
+      const eased = 1 - Math.pow(1 - elapsed, 3) // easeOutCubic
+      const value = Math.round(from + (to - from) * eased)
+      setDisplayedCount(value)
+      if (elapsed < 1) raf = requestAnimationFrame(tick)
+    }
+    raf = requestAnimationFrame(tick)
+    return () => cancelAnimationFrame(raf)
+  }, [count])
+
+  // Magnetic hover for CTAs
+  const handleCtaMove = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    const el = e.currentTarget
+    const rect = el.getBoundingClientRect()
+    const x = (e.clientX - rect.left - rect.width / 2) / rect.width
+    const y = (e.clientY - rect.top - rect.height / 2) / rect.height
+    el.style.transform = `translate(${x * 8}px, ${y * 8}px)`
+  }
+  const handleCtaLeave = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    e.currentTarget.style.transform = ''
+  }
   const [message, setMessage] = useState<string>("");
   const [msgStatus, setMsgStatus] = useState<number>();
+  // Particles count for background
+  const particles = Array.from({ length: 20 })
+
+  // Generic tilt effect for cards (not on the form element itself)
+  const handleTiltCard = (e: React.MouseEvent<HTMLElement>) => {
+    const el = e.currentTarget as HTMLElement
+    const rect = el.getBoundingClientRect()
+    const x = (e.clientX - rect.left) / rect.width
+    const y = (e.clientY - rect.top) / rect.height
+    const rx = (0.5 - y) * 8 // rotateX range
+    const ry = (x - 0.5) * 10 // rotateY range
+    el.style.transform = `perspective(900px) rotateX(${rx}deg) rotateY(${ry}deg)`
+  }
+  const handleTiltLeave = (e: React.MouseEvent<HTMLElement>) => {
+    (e.currentTarget as HTMLElement).style.transform = ''
+  }
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const res = await requestService.post(
@@ -71,37 +120,72 @@ function Home() {
     setMessage(data.msg);
     setMsgStatus(res.status);
   };
-  return (
+  const content = (
     <div className={style.container}>
       <header className={style.header}>
-        <h1 className="">Simple Quiz API</h1>
+        <h1>Simple Quiz API</h1>
       </header>
       <main className={style.main}>
-        <div className={style.insertQuestion}>
-          <h3>Nombre de questions disponibles sur l'API : {count}</h3>
+        <div className={style.particles} aria-hidden>
+          {particles.map((_, i) => (
+            <span key={i} />
+          ))}
         </div>
-        <div className={style.insertQuestion}>
+        <section className={style.hero}>
+          <div className={style.heroContent}>
+            <div className={style.kicker}>Open-source API</div>
+            <h2 className={style.heroTitle}>Construis des Quiz <span>connectés</span></h2>
+            <p className={style.heroSubtitle}>
+              Une API contributive, prête à brancher dans vos applications. Créez, intégrez et
+              partagez facilement des questions; faites grandir une base commune de quiz ouverte
+              et collaborative.
+            </p>
+            <div className={style.ctaRow}>
+              <a href="#submitQuestion" className={style.primaryCta} onMouseMove={handleCtaMove} onMouseLeave={handleCtaLeave}>Proposer une question</a>
+              <a href="#exemple" className={style.secondaryCta} onMouseMove={handleCtaMove} onMouseLeave={handleCtaLeave}>Voir des exemples</a>
+            </div>
+            <div className={style.badges}>
+              <span className={style.badge}>REST</span>
+              <span className={style.badge}>TypeScript</span>
+              <span className={style.badge}>Open Data</span>
+            </div>
+          </div>
+          <div className={style.heroAside}>
+            <div
+              className={[style.counterCard, style.tilt].join(' ')}
+              aria-live="polite"
+              onMouseMove={handleTiltCard}
+              onMouseLeave={handleTiltLeave}
+            >
+              <div className={style.counterValue}>{displayedCount}</div>
+              <div className={style.counterLabel}>Quiz disponibles</div>
+            </div>
+            <div className={style.terminal}>
+              <div className={style.termHeader}>
+                <span />
+                <span />
+                <span />
+              </div>
+              <pre>
+{`curl -s "https://quizzapi.jomoreschi.fr/api/v2/quiz?limit=3&category=tv_cinema&difficulty=facile" | jq`}
+              </pre>
+            </div>
+          </div>
+        </section>
+        <div
+          id="submitQuestion"
+          className={[style.insertQuestion, style.tilt].join(' ')}
+          onMouseMove={handleTiltCard}
+          onMouseLeave={handleTiltLeave}
+        >
           <h2 className={style.questionTitle}>Proposez vos questions !</h2>
           <p className={style.questionSubtitle}>
             L'API se construit grâce à la communauté. Vous pouvez proposer vos
             questions en remplissant le formulaire suivant :
           </p>
-          {message.length > 0 ? (
-            <div
-              id="message"
-              className={
-                msgStatus == 400
-                  ? [style.questionMessage, style.msgError].join(" ")
-                  : [style.questionMessage, style.msgValid].join(" ")
-              }
-            >
-              {message}
-            </div>
-          ) : null}
           <form
             className={style.questionForm}
             name="submitQuestion"
-            id="submitQuestion"
             onSubmit={handleSubmit}
           >
             <InputsComponent
@@ -173,12 +257,29 @@ function Home() {
               ]}
               radioName="difficulty"
             />
+            {message.length > 0 ? (
+              <div
+                id="message"
+                className={
+                  msgStatus == 400
+                    ? [style.questionMessage, style.msgError].join(" ")
+                    : [style.questionMessage, style.msgValid].join(" ")
+                }
+              >
+                {message}
+              </div>
+            ) : null}
             <ButtonComponent id="submitQuiz" label="Soumettre la question" />
           </form>
         </div>
 
-        <div id="exemple" className={style.example}>
-          <h2 className="">Une API pour créer des quiz dans vos applis !</h2>
+        <div
+          id="exemple"
+          className={[style.example, style.tilt].join(' ')}
+          onMouseMove={handleTiltCard}
+          onMouseLeave={handleTiltLeave}
+        >
+          <h2>Une API pour créer des quiz dans vos applis !</h2>
           <div>
             <p className={style.exampleSubtitle}>Exemple de requête :</p>
             <code>
@@ -254,6 +355,12 @@ function Home() {
         </p>
       </footer>
     </div>
+  );
+
+  return user ? (
+    <AdminLayout>{content}</AdminLayout>
+  ) : (
+    content
   );
 }
 

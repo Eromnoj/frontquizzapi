@@ -29,7 +29,7 @@ function Connexion() {
   return (
     <div className={style.main}>
       <div className={style.box}>
-        <h1>Connexion</h1>
+        <h1 className={style.title}>Connexion</h1>
         {error !== null ? (
           <div className={style.errorMessage}>{error}</div>
         ) : null}

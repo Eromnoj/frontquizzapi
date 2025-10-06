@@ -41,8 +41,10 @@ function PendingComponent() {
   };
 
   return (
+    <>
     <section className={style.section}>
       <h3 className={style.title}>Questions en attente de modération</h3>
+      <div className={style.tableWrap}>
       <table>
         <thead>
           <tr>
@@ -78,12 +80,16 @@ function PendingComponent() {
           }
         </tbody>
       </table>
-      {quizId && quizData ?
-        <div className={style.modal}>
-          <UpdateModalComponent data={quizData} cb={() => getQuizzes()} toggle={() => toggleForm(quizId, quizData)} />
-        </div>
-        : null}
+      </div>
     </section>
+    {quizId && quizData ? (
+      <UpdateModalComponent
+        data={quizData}
+        cb={() => getQuizzes()}
+        toggle={() => toggleForm(quizId, quizData)}
+      />
+    ) : null}
+    </>
   );
 }
 

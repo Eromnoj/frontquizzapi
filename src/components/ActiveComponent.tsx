@@ -125,6 +125,7 @@ useEffect(function () {
     getQuizzes(1)
   }
   return (
+    <>
     <section className={style.section}>
       <h3 className={style.title}>Toutes les questions disponibles</h3>
       <div className={style.filterBox}>
@@ -172,6 +173,7 @@ useEffect(function () {
           <ButtonComponent id="searchQuiz" label="Chercher" />
         </form>
       </div>
+      <div className={style.tableWrap}>
       <table>
         <thead>
           <tr>
@@ -207,24 +209,27 @@ useEffect(function () {
           }
         </tbody>
       </table>
+      </div>
       <div className={style.pagination}>
         <button onClick={() => {
           setPaginationData({type:"decrease"})
-        }} disabled={paginationData.page <= 1 }>Precedent</button>
-        <div>
+        }} disabled={paginationData.page <= 1 }>Précédent</button>
+        <div className={style.pageInfo}>
           {paginationData.page} / {paginationData.totalPages}
         </div>
-
         <button onClick={() => {
           setPaginationData({type:"increase"})
         }} disabled={paginationData.page >= paginationData.totalPages }>Suivant</button>
       </div>
-      {quizId && quizData ?
-        <div className={style.modal}>
-          <UpdateModalComponent data={quizData} cb={() => getQuizzes(paginationData.page)} toggle={() => toggleForm(quizId, quizData)} />
-        </div>
-        : null}
     </section>
+    {quizId && quizData ? (
+      <UpdateModalComponent
+        data={quizData}
+        cb={() => getQuizzes(paginationData.page)}
+        toggle={() => toggleForm(quizId, quizData)}
+      />
+    ) : null}
+    </>
   );
 }
 

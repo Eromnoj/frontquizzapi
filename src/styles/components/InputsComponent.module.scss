@@ -1,28 +1,53 @@
 @use '../Variables' as *;
+
 .inputField {
-  display : flex;
-  flex-direction: column;  
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 14px;
+
   label {
     font-weight: 700;
-    color: $dark-purple;
-    padding: 5px;
-    margin-top: 5px;
+    color: $text;
   }
-  input, select {
-    padding: 6px;
-    padding-bottom: 5px;
-    border-bottom: $light-blue 1px solid;
 
+  input,
+  select,
+  textarea {
+    padding: 10px 12px;
+    border: 1px solid $border;
+    border-radius: $radius-md;
+    background-color: $surface;
+    transition: border-color .15s ease, box-shadow .15s ease;
     &:focus {
-      padding: 5px;
-      border: $federal-blue 1px solid;
-      border-radius: 5px;
+      outline: none;
+      border-color: $primary;
+      box-shadow: $focus-ring;
     }
+  }
+
+  select {
+    appearance: none;
+    background-image: linear-gradient(45deg, transparent 50%, $muted 50%),
+      linear-gradient(135deg, $muted 50%, transparent 50%);
+    background-position: calc(100% - 18px) calc(1em + 2px), calc(100% - 12px) calc(1em + 2px);
+    background-size: 6px 6px, 6px 6px;
+    background-repeat: no-repeat;
   }
 
   .radiosList {
     display: flex;
-    justify-content: space-evenly;
+    gap: 16px;
     flex-wrap: wrap;
+    .radioOption {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+  }
+
+  .error {
+    color: $danger;
+    font-size: 14px;
   }
 }

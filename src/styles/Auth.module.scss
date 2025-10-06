@@ -1,24 +1,32 @@
+@use 'Variables' as *;
 @import 'Mixins';
 
 .main {
- display: flex;
+  display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   padding: 20px;
   .box {
     @include BoxedContent;
+    .title {
+      font-size: 24px;
+      line-height: 1.3;
+      color: $text;
+      font-family: 'Ruda', sans-serif;
+    }
      .errorMessage {
-      margin: 15px;
-      border: 1px solid;
-      padding: 7px;
-      min-width: 50%;
+      margin: 12px 0;
+      border: 1px solid #fecaca;
+      background-color: #fee2e2;
+      color: #dc2626;
+      padding: 10px 12px;
+      width: 100%;
       text-align: center;
-        border-color : red;
-        color: red;
-          }
+      border-radius: 8px;
+    }
     .questionForm {
-      min-width: 60%;
+      width: 100%;
     }
   }
 }
