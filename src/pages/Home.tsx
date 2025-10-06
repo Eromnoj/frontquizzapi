@@ -75,9 +75,11 @@ function Home() {
     <div className={style.container}>
       <header className={style.header}>
         <h1 className="">Simple Quiz API</h1>
-        <h3>Nombre de questions disponibles sur l'API : {count}</h3>
       </header>
       <main className={style.main}>
+        <div className={style.insertQuestion}>
+          <h3>Nombre de questions disponibles sur l'API : {count}</h3>
+        </div>
         <div className={style.insertQuestion}>
           <h2 className={style.questionTitle}>Proposez vos questions !</h2>
           <p className={style.questionSubtitle}>
@@ -177,13 +179,6 @@ function Home() {
 
         <div id="exemple" className={style.example}>
           <h2 className="">Une API pour créer des quiz dans vos applis !</h2>
-          <p className="">
-            Cette API est facile à utiliser, référez-vous à la documentation en
-            suivant ce lien :
-            <a href="/documentation" className="">
-              Documentation
-            </a>
-          </p>
           <div>
             <p className={style.exampleSubtitle}>Exemple de requête :</p>
             <code>
