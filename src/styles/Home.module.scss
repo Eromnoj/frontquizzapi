@@ -1,9 +1,11 @@
 @use 'Variables' as *;
 @use 'sass:color';
 @import 'Mixins';
+
 body {
   background-color: $light-blue;
 }
+
 .container {
   margin: 0;
   padding: 0;
@@ -47,37 +49,46 @@ body {
     margin-bottom: 20px;
   }
 
-  .insertQuestion,.example {
+  .insertQuestion,
+  .example {
     @include BoxedContent;
-       .questionTitle {
+
+    .questionTitle {
       text-align: center;
     }
-    .questionSubtitle , .exampleSubtitle{
+
+    .questionSubtitle,
+    .exampleSubtitle {
       margin-top: 15px;
       margin-bottom: 5px;
-      max-width:80%; 
+      max-width: 80%;
     }
+
     .questionForm {
       min-width: 60%;
     }
+
     .questionMessage {
       margin: 15px;
       border: 1px solid;
       padding: 7px;
       min-width: 50%;
       text-align: center;
+
       &.msgError {
-        border-color : red;
+        border-color: red;
         color: red;
       }
+
       &.msgValid {
-        border-color : green;
+        border-color: green;
         color: green;
       }
     }
-  
+
 
   }
+
   code {
     display: inline-block;
     background-color: $mint-green;
@@ -88,6 +99,7 @@ body {
     width: 100%;
   }
 }
+
 .footer {
   margin-top: 10px;
   width: 100%;

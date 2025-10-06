@@ -3,7 +3,7 @@ import ButtonComponent from "../components/ButtonComponent";
 import InputsComponent from "../components/InputsComponent";
 import { useReducer, useState } from "react";
 import RequestService from "../services/requestService";
-
+import { useEffect } from "react";
 function Home() {
   const requestService = RequestService.getInstance();
   type QuizData = {
@@ -36,7 +36,21 @@ function Home() {
     const { name, value } = e.target;
     setQuizData({ [name]: value });
   };
-
+  const [options, setOptions] = useState<{ id: string, name: string, slug: string }[] | []>([])
+  const getCat = async () => {
+    const resCat = await requestService.get(import.meta.env.VITE_API_URL + "/quiz/categories")
+    setOptions(resCat.response)
+  }
+  const [count, setCount] = useState<number>(0)
+  const getCount = async () => {
+    const resCount = await requestService.get(import.meta.env.VITE_API_URL + "/quiz/count")
+    setCount(resCount.response)
+    console.log("COUNT", resCount)
+  }
+  useEffect(function () {
+    getCat()
+    getCount()
+  }, [])
   const [message, setMessage] = useState<string>("");
   const [msgStatus, setMsgStatus] = useState<number>();
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -61,6 +75,7 @@ function Home() {
     <div className={style.container}>
       <header className={style.header}>
         <h1 className="">Simple Quiz API</h1>
+        <h3>Nombre de questions disponibles sur l'API : {count}</h3>
       </header>
       <main className={style.main}>
         <div className={style.insertQuestion}>
@@ -140,14 +155,7 @@ function Home() {
               value={quizData.categoryId}
               onChange={handleInputChange}
               tabIndex={6}
-              options={[
-                { id: "tv_cinema", label: "TV & Cinéma" },
-                { id: "geographie", label: "Géographie" },
-                { id: "histoire", label: "Histoire" },
-                { id: "sciences", label: "Sciences" },
-                { id: "sport", label: "Sport" },
-                { id: "musique", label: "Musique" },
-              ]}
+              options={options}
             />
             <InputsComponent
               type="radio"
@@ -220,6 +228,17 @@ function Home() {
               <br />
               ]<br />
               {"}"}
+            </code>
+            <p className={style.exampleSubtitle}>Slug des catégories :</p>
+            <code>
+              {options.length > 0 ? options.map((o, i) => {
+                return (
+                  <div key={i}>
+                    {o.name} : {o.slug}
+                  </div>
+                )
+              }) : null
+              }
             </code>
           </div>
         </div>

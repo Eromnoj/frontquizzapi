@@ -1,5 +1,7 @@
 import { useAuth } from "../hooks/AuthHook";
 import { Navigate } from "react-router-dom";
+import PendingComponent from "../components/PendingComponent";
+import ActiveComponent from "../components/ActiveComponent";
 function Admin() {
   const { user, isAdmin } = useAuth();
   console.log("ADMIN", user);
@@ -10,7 +12,8 @@ function Admin() {
 
   return (
     <>
-      <h1>Admin</h1>
+      <PendingComponent />
+      <ActiveComponent />
     </>
   );
 }
