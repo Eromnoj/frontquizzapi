@@ -162,4 +162,76 @@ table {
   }
 }
 
+.quizId {
+  font-family: "Roboto Mono", monospace;
+  font-size: 13px;
+  color: color.scale($text, $lightness: -10%);
+}
+
+.reportList {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+
+  li {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 12px;
+    padding-bottom: 8px;
+    border-bottom: 1px dashed $border;
+
+    &:last-child {
+      border-bottom: none;
+      padding-bottom: 0;
+    }
+  }
+}
+
+.reportDetails {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.reportReason {
+  font-weight: 600;
+  color: $text;
+}
+
+.reportDate {
+  font-size: 12px;
+  color: $muted;
+}
+
+.reportDelete {
+  align-self: center;
+  padding: 4px 10px;
+  font-size: 13px;
+  font-weight: 600;
+  border-radius: $radius-sm;
+  border: 1px solid color.scale($danger, $lightness: -12%);
+  background: color.change($danger, $alpha: 0.9);
+  color: #ffffff;
+  cursor: pointer;
+  transition: background-color .2s ease, box-shadow .2s ease, transform .02s ease;
+
+  &:hover {
+    background: color.scale($danger, $lightness: -8%);
+    box-shadow: 0 8px 16px rgba(191, 0, 36, 0.24);
+  }
+
+  &:active {
+    transform: translateY(0.5px);
+  }
+
+  &:focus-visible {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(255,255,255,0.7), 0 0 0 6px color.change($danger, $alpha: 0.35);
+  }
+}
+
 }
