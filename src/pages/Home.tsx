@@ -1,6 +1,7 @@
 import style from "../styles/Home.module.scss";
 import ButtonComponent from "../components/ButtonComponent";
 import InputsComponent from "../components/InputsComponent";
+import ReportModalComponent from "../components/ReportModalComponent";
 import { useReducer, useState } from "react";
 import RequestService from "../services/requestService";
 import { useEffect } from "react";
@@ -120,6 +121,10 @@ function Home() {
     setMessage(data.msg);
     setMsgStatus(res.status);
   };
+  const [isReportModalOpen, setIsReportModalOpen] = useState(false);
+  const openReportModal = () => setIsReportModalOpen(true);
+  const closeReportModal = () => setIsReportModalOpen(false);
+
   const content = (
     <div className={style.container}>
       <header className={style.header}>
@@ -131,6 +136,13 @@ function Home() {
             <span key={i} />
           ))}
         </div>
+        <button
+          type="button"
+          className={style.reportTrigger}
+          onClick={openReportModal}
+        >
+          Signaler un quiz
+        </button>
         <section className={style.hero}>
           <div className={style.heroContent}>
             <div className={style.kicker}>Open-source API</div>
@@ -272,7 +284,6 @@ function Home() {
             <ButtonComponent id="submitQuiz" label="Soumettre la question" />
           </form>
         </div>
-
         <div
           id="exemple"
           className={[style.example, style.tilt].join(' ')}
@@ -357,10 +368,19 @@ function Home() {
     </div>
   );
 
-  return user ? (
+  const page = user ? (
     <AdminLayout>{content}</AdminLayout>
   ) : (
     content
+  );
+
+  return (
+    <>
+      {page}
+      {isReportModalOpen ? (
+        <ReportModalComponent onClose={closeReportModal} />
+      ) : null}
+    </>
   );
 }
 
