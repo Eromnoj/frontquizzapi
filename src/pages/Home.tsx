@@ -120,6 +120,25 @@ function Home() {
     const data = await res.response;
     setMessage(data.msg);
     setMsgStatus(res.status);
+
+    const field : Partial<QuizData>[] = [
+      {question:""},
+      {answer:""},
+      {categoryId:""},
+      {difficulty:"facile"},
+      {badAnswer1:""},
+      {badAnswer2:""},
+      {badAnswer3:""},
+    ]
+
+    field.forEach((item) => {
+      setQuizData(item)
+    })
+    setTimeout(() => {
+      setMessage('')
+      setMsgStatus(undefined)
+    }, 3000)
+
   };
   const [isReportModalOpen, setIsReportModalOpen] = useState(false);
   const openReportModal = () => setIsReportModalOpen(true);
