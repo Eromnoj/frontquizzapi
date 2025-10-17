@@ -5,6 +5,7 @@
 .section {
   @include BoxedContent;
   max-width: 100%;
+  margin: 0;
 
   h3 {
     font-size: 24px;
@@ -103,15 +104,22 @@ $head-text: #111827;
 }
 .tableWrap {
   width: 100%;
-  overflow-x: visible;
+  overflow-x: auto;
+  overflow-y: hidden;
+  border: 1px solid $border;
+  border-radius: $radius-md;
+  background: #fff;
+  box-shadow: inset 0 0 0 1px rgba(2, 6, 23, 0.02);
+  max-width: 100%;
 }
 
 table {
   width: 100%;
+  min-width: 720px;
   border-collapse: collapse;
   color: $text;
   background: #fff;
-  border: 1px solid $border;
+  border: none;
   border-radius: $radius-md;
   overflow: hidden;
 
