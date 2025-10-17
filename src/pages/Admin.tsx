@@ -3,6 +3,7 @@ import { Navigate } from "react-router-dom";
 import PendingComponent from "../components/PendingComponent";
 import ActiveComponent from "../components/ActiveComponent";
 import ReportedComponent from "../components/ReportedComponent";
+import CategoryComponent from "../components/CategoryComponent";
 import AdminMenuComponent from "../components/AdminMenuComponent";
 import style from "../styles/Admin.module.scss";
 import { useState } from "react";
@@ -24,6 +25,7 @@ function Admin() {
     : active == 1 ?
       <section className={style.content}>
         <ActiveComponent />
+        <CategoryComponent />
       </section>
       : active == 2 ?
         <section className={style.content}>
