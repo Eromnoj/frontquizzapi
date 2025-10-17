@@ -15,7 +15,7 @@ type QuizData = {
 };
 function PendingComponent() {
   const requestService = RequestService.getInstance()
-  const [quizz, setQuizz] = useState<any | null>(null)
+  const [quizz, setQuizz] = useState<any>([])
   const getQuizzes = async () => {
     const resQuizz = await requestService.get(import.meta.env.VITE_API_URL + "/quiz/pending")
     setQuizz(resQuizz.response)
@@ -61,7 +61,7 @@ function PendingComponent() {
         </thead>
         <tbody>
           {
-            quizz && quizz != null ?
+            quizz.length > 0 ?
               quizz.map((q: any) => {
                 return (
                   <tr key={q.id}>
@@ -76,8 +76,11 @@ function PendingComponent() {
                     <td><ActionComponent label='Supprimer' type='alert' id='delete' onClick={() => deleteQuestion(q.id)} /></td>
                   </tr>
                 )
-              }) : null
-          }
+              }) : (
+                <tr>
+                  <td colSpan={9}>Aucun quiz en attente de modération.</td>
+                </tr>
+              )}
         </tbody>
       </table>
       </div>

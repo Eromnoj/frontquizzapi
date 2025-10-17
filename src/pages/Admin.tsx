@@ -3,6 +3,9 @@ import { Navigate } from "react-router-dom";
 import PendingComponent from "../components/PendingComponent";
 import ActiveComponent from "../components/ActiveComponent";
 import ReportedComponent from "../components/ReportedComponent";
+import AdminMenuComponent from "../components/AdminMenuComponent";
+import style from "../styles/Admin.module.scss";
+import { useState } from "react";
 function Admin() {
   const { user, isAdmin } = useAuth();
   console.log("ADMIN", user);
@@ -11,12 +14,28 @@ function Admin() {
     return <Navigate to="/" replace />;
   }
 
-  return (
-    <>
+  const [active, setActive] = useState<number>(0)
+
+  const content = active == 0 ?
+    <section className={style.content}>
       <PendingComponent />
       <ReportedComponent />
-      <ActiveComponent />
-    </>
+    </section>
+    : active == 1 ?
+      <section className={style.content}>
+        <ActiveComponent />
+      </section>
+      : active == 2 ?
+        <section className={style.content}>
+          <p>User</p>
+        </section> :
+        <>
+        </>
+  return (
+    <section className={style.mainSection}>
+    <AdminMenuComponent active={active} setActive={setActive} />
+    {content}
+    </section>
   );
 }
 
