@@ -5,6 +5,7 @@ import ActiveComponent from "../components/ActiveComponent";
 import ReportedComponent from "../components/ReportedComponent";
 import CategoryComponent from "../components/CategoryComponent";
 import AdminMenuComponent from "../components/AdminMenuComponent";
+import UserComponent from "../components/UserComponent";
 import style from "../styles/Admin.module.scss";
 import { useState } from "react";
 function Admin() {
@@ -29,7 +30,7 @@ function Admin() {
       </section>
       : active == 2 ?
         <section className={style.content}>
-          <p>User</p>
+          <UserComponent />
         </section> :
         <>
         </>
