@@ -176,6 +176,29 @@ table {
   color: color.scale($text, $lightness: -10%);
 }
 
+.messageBox {
+  margin-top: 12px;
+  padding: 12px 16px;
+  border-radius: $radius-md;
+  border: 1px solid $border;
+  background: $surface-3;
+  color: $text;
+  font-size: 14px;
+  line-height: 1.4;
+}
+
+.messageSuccess {
+  border-color: color.scale($success, $lightness: 20%);
+  background-color: color.change($success, $alpha: 0.08);
+  color: color.scale($success, $lightness: -5%);
+}
+
+.messageError {
+  border-color: color.scale($danger, $lightness: 20%);
+  background-color: color.change($danger, $alpha: 0.08);
+  color: color.scale($danger, $lightness: -5%);
+}
+
 .reportList {
   margin: 0;
   padding: 0;
