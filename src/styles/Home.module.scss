@@ -450,7 +450,7 @@ body {
   }
 
   .insertQuestion,
-  .example {
+  .example{
     @include BoxedContent;
     // glassy card to match hero vibes
     background: rgba(255,255,255,.92);
@@ -561,6 +561,70 @@ body {
     }
   }
   .exampleSubtitle { color: $muted; }
+
+  .referalSection {
+    
+    @include BoxedContent;
+    background: rgba(255,255,255,.92);
+    border: 1px solid rgba(255,255,255,.6);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    padding: 24px;
+    display: grid;
+    gap: 16px;
+    margin: 0 auto;
+    // Accent top bar
+    &::before {
+      content: "";
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 4px;
+      background: linear-gradient(90deg, #2563eb, #22c55e);
+      opacity: .9;
+    }
+
+        .referalTitle {
+      text-align: center;
+    }
+    ul {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: grid;
+      gap: 12px;
+    }
+
+    li {
+      display: block;
+    }
+
+    a {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      width: 100%;
+      padding: 14px 16px;
+      border-radius: $radius-lg;
+      background: rgba(255,255,255,.78);
+      border: 1px solid rgba(255,255,255,.55);
+      color: $primary;
+      font-weight: 700;
+      text-decoration: none;
+      transition: transform .2s ease, box-shadow .2s ease, color .2s ease;
+
+      &:hover {
+        transform: translateY(-1px);
+        box-shadow: 0 18px 40px rgba(2,6,23,.12);
+        text-decoration: none;
+      }
+    }
+
+    img {
+      width: 42px;
+      height: 42px;
+      object-fit: contain;
+    }
+  }
 }
 
 .footer {

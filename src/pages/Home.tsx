@@ -8,6 +8,7 @@ import { useEffect } from "react";
 import { useAuth } from "../hooks/AuthHook";
 import AdminLayout from "../layouts/AdminLayout";
 import BuyMeACoffee from "../components/BuyMeACoffee";
+import Referal from "../components/Referal";
 function Home() {
   const { user } = useAuth();
   const requestService = RequestService.getInstance();
@@ -148,7 +149,7 @@ function Home() {
   const content = (
     <div className={style.container}>
       <header className={style.header}>
-        <h1>Simple Quiz API</h1>
+        <h1>QuizzAPI FR</h1>
       </header>
       <main className={style.main}>
         <div className={style.particles} aria-hidden>
@@ -206,6 +207,7 @@ function Home() {
             </div>
           </div>
         </section>
+        <Referal />
         <div
           id="submitQuestion"
           className={[style.insertQuestion, style.tilt].join(' ')}
