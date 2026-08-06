@@ -7,6 +7,7 @@ import RequestService from "../services/requestService";
 import { useEffect } from "react";
 import { useAuth } from "../hooks/AuthHook";
 import AdminLayout from "../layouts/AdminLayout";
+import BuyMeACoffee from "../components/BuyMeACoffee";
 function Home() {
   const { user } = useAuth();
   const requestService = RequestService.getInstance();
@@ -174,6 +175,8 @@ function Home() {
             <div className={style.ctaRow}>
               <a href="#submitQuestion" className={style.primaryCta} onMouseMove={handleCtaMove} onMouseLeave={handleCtaLeave}>Proposer une question</a>
               <a href="#exemple" className={style.secondaryCta} onMouseMove={handleCtaMove} onMouseLeave={handleCtaLeave}>Voir des exemples</a>
+              
+        <BuyMeACoffee />
             </div>
             <div className={style.badges}>
               <span className={style.badge}>REST</span>
@@ -198,7 +201,7 @@ function Home() {
                 <span />
               </div>
               <pre>
-                {`curl -s "https://quizzapi.jomoreschi.fr/api/v2/quiz?limit=3&category=tv_cinema&difficulty=facile" | jq`}
+                {`curl -s "https://quizzapi.fr/api/v2/quiz?limit=3&category=tv_cinema&difficulty=facile" | jq`}
               </pre>
             </div>
           </div>
@@ -313,7 +316,7 @@ function Home() {
           <div>
             <p className={style.exampleSubtitle}>Exemple de requête :</p>
             <code>
-              https://quizzapi.jomoreschi.fr/api/v2/quiz?limit=5&category=tv_cinema&difficulty=facile
+              https://quizzapi.fr/api/v2/quiz?limit=5&category=tv_cinema&difficulty=facile
             </code>
             <p className={style.exampleSubtitle}>Structure de la réponse :</p>
             <code>
